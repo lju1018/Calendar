@@ -3,7 +3,11 @@ package com.human.ex;
 import java.util.Scanner;
 
 public class Prompt {
-	
+	/**
+	 * 
+	 * @param week 요일명
+	 * @return	0~6 
+	 */
 	public int parseDay(String week) {
 		if (week.equals("su")) return 0;
 		else if(week.equals("mo")) return 1;
@@ -26,23 +30,27 @@ public class Prompt {
 				int weekday=0;
 
 				while (true) {
-					System.out.println("년도 입력>> ");
+					System.out.println("년도 입력>> exit:-1 ");
 					System.out.print("Year>> ");
 					year=sc.nextInt();
+					if(year==-1)
+						break;
 					System.out.println("달을 입력>> ");
 					System.out.print("Month>> ");
 					month = sc.nextInt();
-					if (month == -1) {
-						break;
-					}
-					if (month > 12) {
-						continue;
-					}
-
 					System.out.println("첫번째 요일(SU, MO, WE, TH, FR, SA)");
 					System.out.println("WeekDay>> ");
 					String str_weekday=sc.next();
 					weekday=parseDay(str_weekday);
+
+					
+					if (month > 12 || month < 1) {
+						System.out.println("잘못된 입력입니다.");
+						continue;
+					}
+
+					
+					
 
 					cal.printCalendar(year,month,weekday);
 				}
@@ -55,7 +63,7 @@ public class Prompt {
 		//셀 실행
 		Prompt p=new Prompt();
 		p.runPrompt();
-		
+		System.out.println("bye~");
 	}
 
 }
