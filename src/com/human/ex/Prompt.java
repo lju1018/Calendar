@@ -63,7 +63,7 @@ public class Prompt {
 		//셀 실행
 		Prompt p=new Prompt();
 		p.runPrompt();
-		System.out.println("bye~");
+		System.out.println("bye~!");
 	}
 
 }

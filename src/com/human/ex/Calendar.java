@@ -58,7 +58,7 @@ public class Calendar {
 				System.out.println();
 			}
 		}
-		System.out.println();
+		System.out.println( );
 		System.out.println();
 //		System.out.println();
 //		System.out.println(" 1  2  3  4  5  6  7");
@@ -75,7 +75,7 @@ public class Calendar {
 //			
 //		}
 		}
-	
+
 
 	public static void main(String[] args) {
 
