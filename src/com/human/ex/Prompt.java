@@ -9,7 +9,7 @@ public class Prompt {
 	 * @return	0~6 
 	 */
 	public int parseDay(String week) {
-		if (week.equals("su")) return 0;
+		if (week.equals("su"))  return 0;
 		else if(week.equals("mo")) return 1;
 		else if(week.equals("tu")) return 2;
 		else if(week.equals("we")) return 3;
@@ -27,7 +27,7 @@ public class Prompt {
 
 				int month = 1;
 				int year=2017;
-				int weekday=0;
+				
 
 				while (true) {
 					System.out.println("년도 입력>> exit:-1 ");
@@ -38,21 +38,13 @@ public class Prompt {
 					System.out.println("달을 입력>> ");
 					System.out.print("Month>> ");
 					month = sc.nextInt();
-					System.out.println("첫번째 요일(SU, MO, WE, TH, FR, SA)");
-					System.out.println("WeekDay>> ");
-					String str_weekday=sc.next();
-					weekday=parseDay(str_weekday);
-
 					
 					if (month > 12 || month < 1) {
 						System.out.println("잘못된 입력입니다.");
 						continue;
 					}
 
-					
-					
-
-					cal.printCalendar(year,month,weekday);
+					cal.printCalendar(year,month);
 				}
 
 //				cal.printSampleCalendar();
