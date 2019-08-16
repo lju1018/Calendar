@@ -10,9 +10,14 @@ public class Prompt {
 		System.out.println("| 1. 일정 등록" );         
 		System.out.println("| 2. 일정 검색");        
 		System.out.println("| 3. 달력 보기");
-		System.out.println("| h. 도움말 q. 종료");
+		System.out.println("| h. 메뉴 q. 종료");
 		System.out.println("+----------------------+");
 	}
+	
+	/**
+	 * 1.스위치 케이스 -스트링 적용
+	 * 2. 플랜 클래스 생성 - 리팩토링?
+	 */
 	
 	/**
 	 * 
@@ -20,16 +25,24 @@ public class Prompt {
 	 * @return	0~6 
 	 */
 	public int parseDay(String week) {
-		if (week.equals("su"))  return 0;
-		else if(week.equals("mo")) return 1;
-		else if(week.equals("tu")) return 2;
-		else if(week.equals("we")) return 3;
-		else if(week.equals("th")) return 4;
-		else if(week.equals("fr")) return 5;
-		else if(week.equals("sa")) return 6;
-		else
+		switch(week) {
+		case "su":
 			return 0;
+		case "tu":
+			return 1;
+		case "we":
+			return 2;
+		case "th":
+			return 3;
+		case "fr":
+			return 4;
+		case "sa":
+			return 5;
+		default:
+			return 0;
+		}
 	}
+		
 	
 	
 	
@@ -39,21 +52,29 @@ public class Prompt {
 				Scanner sc = new Scanner(System.in);
 				Calendar cal = new Calendar();
 
-
-				while(true) {
-					System.out.println("명령(1, 2, 3, h, q)");
+				boolean isLoop=true;
+				while(isLoop) {
+					System.out.println("명령(1, 2, 3, m, q)");
 				String cmd=sc.nextLine();
-				if(cmd.equals("1")) {
+				
+				switch(cmd) {
+				case "1":
 					cmdRegister(sc, cal);
-				}else if(cmd.equals("2")) {
+					break;
+				case "2":
 					cmdSearch(sc, cal);
-				}else if(cmd.equals("3")) {
+					break;
+				case "3":
 					cmdCal(sc, cal);
-				}else if(cmd.equals("h")) {
+					break;
+				case "m":
 					printMenu();
-				}else if(cmd.equals("q")) {
+					break;
+				case "q":
+					isLoop=false;
 					break;
 				}
+				
 				}
 				System.out.println("Thank you. Bye~");
 				sc.close();
@@ -80,43 +101,36 @@ public class Prompt {
 		}
 
 
-		
-	
-
-
 
 	private void cmdSearch(Scanner sc, Calendar c) {
 		System.out.println("일정 검색");
 		System.out.print("날짜 입력 >> (yyyy-MM-dd)");
 		String date=sc.next();
-		String plan="";
-		try {
-			plan = c.searchPlan(date);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.out.println("일정 검색 중 오류발생");
+		PlanItem plan;
+		
+		plan = c.searchPlan(date);
+		if(plan !=null) {
+			System.out.println(plan.detail);
+		}else {
+			System.out.println("일정이 없음");
 		}
-		System.out.println(plan);
 	}
 
 
 	private void cmdRegister(Scanner sc, Calendar c) throws ParseException {
-		System.out.println("새 일정 등록");
+		System.out.println("[새 일정 등록]");
 		System.out.print("날짜 입력 >> (yyyy-MM-dd)");
 		String date=sc.next();
 		String text="";
-		System.out.print("일정 입력>> (문장 끝에 ; 입력)");
-		while(true) {
-		String word=sc.next();
-		text+=word+" ";
-		if(word.endsWith(";")) {
-			break;
+		System.out.print("일정 입력>> (끝에 ; 입력)");
+		String word;
+		while(!(word=sc.next()).endsWith(";")) {
+			text+=word+" ";
 		}
-		}
+		word=word.replace(";", "");
+		text+=word;
 		c.registerPlan(date, text);
 	}
-
 	public static void main(String[] args) throws ParseException {
 		//셀 실행
 		Prompt p=new Prompt();
